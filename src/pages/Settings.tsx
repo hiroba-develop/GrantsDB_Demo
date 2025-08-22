@@ -1,20 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 
 const Settings = () => {
   const { user } = useAuth();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+    }
+  }, [user]);
+
   const [notificationEnabled, setNotificationEnabled] = useState(true);
-  const [darkModeEnabled, setDarkModeEnabled] = useState(false);
-  const [language, setLanguage] = useState("ja");
   const [successMessage, setSuccessMessage] = useState("");
 
   // 設定保存処理
   const saveSettings = () => {
     // 実際のアプリではAPIリクエストを行う
     console.log("設定を保存:", {
+      name,
+      email,
       notificationEnabled,
-      darkModeEnabled,
-      language,
     });
 
     // 成功メッセージを表示
@@ -67,8 +76,8 @@ const Settings = () => {
             </p>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <div className="grid grid-cols-6 gap-6">
-              <div className="col-span-6 sm:col-span-3">
+            <div className="grid grid-cols-1 sm:grid-cols-6 gap-6">
+              <div className="col-span-1 sm:col-span-4">
                 <label
                   htmlFor="name"
                   className="block text-sm font-medium text-gray-700"
@@ -79,13 +88,13 @@ const Settings = () => {
                   type="text"
                   name="name"
                   id="name"
-                  value={user?.name || ""}
-                  readOnly
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-50"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="mt-1 block w-full rounded-md border-gray-300 bg-slate-100 p-2 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
-              <div className="col-span-6 sm:col-span-4">
+              <div className="col-span-1 sm:col-span-4">
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
@@ -96,9 +105,9 @@ const Settings = () => {
                   type="email"
                   name="email"
                   id="email"
-                  value={user?.email || ""}
-                  readOnly
-                  className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-50"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="mt-1 block w-full rounded-md border-gray-300 bg-slate-100 p-2 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
@@ -120,16 +129,18 @@ const Settings = () => {
             <div className="space-y-6">
               <div className="flex items-start">
                 <div className="flex items-center h-5">
-                  <input
-                    id="notifications"
-                    name="notifications"
-                    type="checkbox"
-                    checked={notificationEnabled}
-                    onChange={() =>
-                      setNotificationEnabled(!notificationEnabled)
-                    }
-                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
-                  />
+                  <button
+                    onClick={() => setNotificationEnabled(!notificationEnabled)}
+                    className={`relative inline-flex items-center h-6 rounded-full w-11 transition-colors duration-200 ease-in-out ${
+                        notificationEnabled ? 'bg-[#2B3467]' : 'bg-gray-200'
+                    }`}
+                  >
+                    <span
+                      className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform duration-200 ease-in-out ${
+                        notificationEnabled ? 'translate-x-6' : 'translate-x-1'
+                      }`}
+                    />
+                  </button>
                 </div>
                 <div className="ml-3 text-sm">
                   <label
@@ -142,50 +153,6 @@ const Settings = () => {
                     アプリからの通知を受け取るかどうかを設定します。
                   </p>
                 </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="flex items-center h-5">
-                  <input
-                    id="darkMode"
-                    name="darkMode"
-                    type="checkbox"
-                    checked={darkModeEnabled}
-                    onChange={() => setDarkModeEnabled(!darkModeEnabled)}
-                    className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded"
-                  />
-                </div>
-                <div className="ml-3 text-sm">
-                  <label
-                    htmlFor="darkMode"
-                    className="font-medium text-gray-700"
-                  >
-                    ダークモード
-                  </label>
-                  <p className="text-gray-500">
-                    アプリのテーマをダークモードに切り替えます。
-                  </p>
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="language"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  言語
-                </label>
-                <select
-                  id="language"
-                  name="language"
-                  value={language}
-                  onChange={(e) => setLanguage(e.target.value)}
-                  className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                >
-                  <option value="ja">日本語</option>
-                  <option value="en">English</option>
-                  <option value="zh">中文</option>
-                </select>
               </div>
             </div>
           </div>
