@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { FaHome, FaFileAlt, FaUsers, FaCog, FaBars, FaTimes } from 'react-icons/fa';
+import { FaHome, FaFileAlt, FaUsers, FaCog, FaBars } from 'react-icons/fa';
 
 // サイドバーのナビゲーションアイテム
 const navigationItems = [

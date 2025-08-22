@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { subsidies, Subsidy } from '../data/db';
+import { subsidies, type Subsidy } from '../data/db';
 
 const SubsidiesArchive: React.FC = () => {
     const navigate = useNavigate();
@@ -30,7 +30,8 @@ const SubsidiesArchive: React.FC = () => {
             subsidy.overview.toLowerCase().includes(searchTerm.toLowerCase()) ||
             subsidy.agency.toLowerCase().includes(searchTerm.toLowerCase()) ||
             subsidy.target.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            subsidy.category.toLowerCase().includes(searchTerm.toLowerCase())
+            subsidy.industries.some(c => c.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            subsidy.purposes.some(c => c.toLowerCase().includes(searchTerm.toLowerCase()))
         );
     }, [searchTerm, allSubsidies]);
 
@@ -75,7 +76,7 @@ const SubsidiesArchive: React.FC = () => {
                     <thead className="bg-gray-50 dark:bg-gray-700">
                         <tr>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">補助金名</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">カテゴリ</th>
+                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">タグ</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ステータス</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">実施機関</th>
                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">補助額</th>
@@ -91,12 +92,13 @@ const SubsidiesArchive: React.FC = () => {
                                     </Link>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                    <button 
-                                        onClick={() => setSearchTerm(subsidy.category)}
-                                        className="px-3 py-1 text-xs font-medium text-gray-800 bg-gray-200 dark:bg-gray-600 dark:text-gray-200 rounded-full hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none"
-                                    >
-                                        {subsidy.category}
-                                    </button>
+                                    <div className="flex flex-wrap gap-1">
+                                        {[...subsidy.industries, ...subsidy.purposes].map(tag => (
+                                            <span key={tag} className="px-2 py-1 text-xs rounded-full bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                     {getStatusTag(subsidy.deadline)}
@@ -124,13 +126,14 @@ const SubsidiesArchive: React.FC = () => {
                             <div><span className="font-semibold w-20 inline-block">実施機関:</span> {subsidy.agency}</div>
                             <div><span className="font-semibold w-20 inline-block">補助額:</span> {subsidy.amount}</div>
                             <div>
-                                <span className="font-semibold w-20 align-top inline-block">カテゴリ:</span>
-                                <button 
-                                    onClick={() => setSearchTerm(subsidy.category)}
-                                    className="px-3 py-1 text-xs font-medium text-gray-800 bg-gray-200 dark:bg-gray-600 dark:text-gray-200 rounded-full hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none"
-                                >
-                                    {subsidy.category}
-                                </button>
+                                <span className="font-semibold w-20 align-top inline-block">タグ:</span>
+                                <div className="flex flex-wrap gap-1">
+                                    {[...subsidy.industries, ...subsidy.purposes].map(tag => (
+                                        <span key={tag} className="px-2 py-1 text-xs rounded-full bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>

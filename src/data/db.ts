@@ -5,8 +5,9 @@ export interface Customer {
   id: number;
   name: string;
   industry: string;
-  employees: number;
   location: string;
+  scale: string;
+  sales: string;
   issues: string; // 経営課題
 }
 
@@ -39,10 +40,10 @@ export interface CustomerSubsidyRelation {
 // --- マスターデータ ---
 
 export let customers: Customer[] = [
-  { id: 1, name: '株式会社A', industry: '製造業', employees: 50, location: '東京都', issues: '生産性向上と設備投資' },
-  { id: 2, name: '株式会社B', industry: 'IT', employees: 20, location: '大阪府', issues: '新規事業開発と人材確保' },
-  { id: 3, name: '株式会社C', industry: '小売業', employees: 100, location: '福岡県', issues: 'DX推進とECサイト強化' },
-  { id: 4, name: '株式会社D', industry: '建設業', employees: 35, location: '北海道', issues: '後継者不足と技術継承' },
+  { id: 1, name: '株式会社A', industry: '製造業', scale: '50名', sales: '5,000万円', location: '東京都', issues: '生産性向上と設備投資' },
+  { id: 2, name: '株式会社B', industry: 'IT', scale: '20名', sales: '2,000万円', location: '大阪府', issues: '新規事業開発と人材確保' },
+  { id: 3, name: '株式会社C', industry: '小売業', scale: '100名', sales: '1億円', location: '福岡県', issues: 'DX推進とECサイト強化' },
+  { id: 4, name: '株式会社D', industry: '建設業', scale: '35名', sales: '3,500万円', location: '北海道', issues: '後継者不足と技術継承' },
 ];
 
 export const subsidies: Subsidy[] = [
