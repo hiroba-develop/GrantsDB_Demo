@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { customers as initialCustomers, updateCustomer, deleteCustomer, Customer } from '../data/db';
+import { customers as initialCustomers, updateCustomer, deleteCustomer, type Customer } from '../data/db';
 
 const Customers: React.FC = () => {
     const [customers, setCustomers] = useState<Customer[]>([]);

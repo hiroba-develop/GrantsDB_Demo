@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { subsidies, Subsidy } from '../data/db';
+import { subsidies } from '../data/db';
 
 const Subsidies: React.FC = () => {
     const location = useLocation();

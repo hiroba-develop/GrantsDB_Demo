@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { subsidies, customers, customerSubsidyRelations } from '../data/db';
 import { generateProposalPDFfromHTML } from '../utils/pdfGenerator';
-import { ProposalDocument } from '../components/ProposalDocument'; // Import the component to be rendered
 
 const SubsidyDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

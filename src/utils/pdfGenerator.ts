@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Customer, Subsidy } from '../data/db';
+import { type Customer, type Subsidy } from '../data/db';
 import { createRoot } from 'react-dom/client';
 import { ProposalDocument } from '../components/ProposalDocument';
 import React from 'react';

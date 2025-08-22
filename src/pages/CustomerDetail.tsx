@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { customers, subsidies, customerSubsidyRelations, updateCustomer, Customer, Subsidy, CustomerSubsidyRelation } from '../data/db';
+import { customers, subsidies, customerSubsidyRelations, updateCustomer, type Customer, type Subsidy, type CustomerSubsidyRelation } from '../data/db';
 
 // 顧客に関連する補助金情報を取得するための型
 interface MatchedSubsidy extends Subsidy {

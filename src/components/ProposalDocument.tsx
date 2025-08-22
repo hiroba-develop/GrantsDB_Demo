@@ -1,5 +1,5 @@
 import React from 'react';
-import { Customer, Subsidy } from '../data/db';
+import { type Customer, type Subsidy } from '../data/db';
 
 interface ProposalDocumentProps {
   customer: Customer;

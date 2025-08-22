@@ -89,9 +89,6 @@ const Dashboard: React.FC = () => {
         }
     };
 
-  // ダミーデータ（一部残す）
-  const quickSearches = ['製造業向け', 'IT導入', '東京都限定'];
-
   return (
     <div>
       <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 dark:text-white">ダッシュボード</h1>
